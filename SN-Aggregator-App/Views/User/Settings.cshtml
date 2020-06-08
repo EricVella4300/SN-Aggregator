@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Settings";
+}
+
+<h2>Settings</h2>
+
+    
+<div class="form-horizontal">
+
+    <fb:login-button id="fb-btn"
+                        scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts"
+                        onlogin="checkLoginState();" >
+    </fb:login-button>
+    <input type="button" value="Logout" id="Logout" onclick="Logout()" style="display:none"/>
+</div>
+
+
+<script type="text/javascript">
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '2689916747923929',
+            cookie: true,
+            xfbml: true,
+            version: 'v7.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+            $.ajax({
+                url: '/User/AddFBToken',
+                method: 'POST',
+                data: {
+                    token: response.authResponse.accessToken,
+                },
+                success: function () {
+                    document.getElementById('fb-btn').style.display = 'none';
+                    document.getElementById('Logout').style.display = 'block';
+                }
+            });
+        }
+        else {
+            document.getElementById('fb-btn').style.display = 'block';
+            document.getElementById('Logout').style.display = 'none';
+        }
+    }
+
+    function Logout() {
+        FB.logout(function () {
+            checkLoginState();
+        });
+    }
+</script>

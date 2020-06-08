@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    <a href="#">Log off</a>
+}
+else
+{
+    <a href="~/Register.html">Register</a>
+    <a href="~/Login.html">Login</a>
+}

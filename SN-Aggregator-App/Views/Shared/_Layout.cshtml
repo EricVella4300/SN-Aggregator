@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        /* Fixed sidenav, full height */
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #f1f1f1;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        /* Style the sidenav links and the dropdown button */
+        .sidenav a, .dropdown-btn {
+            padding: 6px 8px 6px 16px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            border: none;
+            background: none;
+            width:100%;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* On mouse-over */
+        .sidenav a:hover, .dropdown-btn:hover {
+            color: black;
+        }
+
+        /* Main content */
+        .main {
+            margin-left: 200px; /* Same as the width of the sidenav */
+            font-size: 20px; /* Increased text to enable scrolling */
+            padding: 0px 10px;
+        }
+
+        /* Add an active class to the active dropdown button */
+        .active {
+            background-color: #f1f1f1;
+        }
+
+        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+        .dropdown-container {
+            display: none;
+            background-color: #f1f1f1;
+            padding-left: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <button class="dropdown-btn">
+            FaceBook
+        </button>
+        <div class="dropdown-container" style="text-decoration-color: black">
+            <a href="/FB/PageFeed/">Feeds</a>
+            <a href="/FB/PageFeedLikes">Likes</a>
+            <a href="#">Photos</a>
+            <a href="#">Posts</a>
+            <a href="#">Profile</a>
+            <a href="#">Comment</a>
+        </div>
+        <button class="dropdown-btn">
+            Twitter
+        </button>
+        <div class="dropdown-container" style="text-decoration-color: black">
+            <a href="#">Home</a>
+            <a href="#">Mentions</a>
+            <a href="#">Favourites</a>
+            <a href="#">Friends</a>
+            <a href="#">Followers</a>
+            <a href="#">Search</a>
+            <a href="#">Tweet</a>
+        </div>
+        <a href="/User/Settings">Settings</a>
+        @Html.Partial("_LoginPartial")
+    </div>
+
+    <!-- Page content -->
+    <div class="main">
+        @RenderBody()
+        <hr/>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+            });
+        }
+    </script>
+</body>
+</html>

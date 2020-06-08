@@ -1,0 +1,40 @@
+﻿@model IEnumerable<SN_Aggregator_App.Models.PageFeedModel>
+
+@{
+    ViewBag.Title = "PageFeed";
+}
+
+<h2>PageFeed</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.datecreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.message)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.datecreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.message)
+            </td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm("PageFeed", "FB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <label>Create New Post on feed</label>
+        <input type="text" placeholder="Message" id="txtMsg" name="txtMsg" class="form-control" />
+        <input type="submit" value="submit" />
+    </div>
+}
