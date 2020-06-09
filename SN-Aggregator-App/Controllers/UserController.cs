@@ -11,7 +11,6 @@ namespace SN_Aggregator_App.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize]
         public ActionResult Settings()
         {
             return View();

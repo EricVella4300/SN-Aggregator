@@ -17,4 +17,17 @@ namespace SN_Aggregator_App.Models
         public string id { get; set; }
         public string name { get; set; }
     }
+
+    public class ImagesModel
+    {
+        public string id { get; set; }
+        public string url { get; set; }
+    }
+
+    public class CommentsModel
+    {
+        public string id { get; set; }
+        public string message { get; set; }
+        public string Date { get; set; }
+    }
 }

@@ -39,8 +39,6 @@ namespace SN_Aggregator_App.Facebook.Controller
 
         public void SetPageFeed(string msg)
         {
-            List<FeedPost> posts = new List<FeedPost>();
-
             string response = PostResponse(facebookendpoint.SetPageFeed(msg));
 
             System.Diagnostics.Debug.WriteLine(response);
@@ -90,5 +88,33 @@ namespace SN_Aggregator_App.Facebook.Controller
             return photos;
         }
 
+        public List<Comments> GetComments(string Post_id)
+        {
+            List<Comments> comments = new List<Comments>();
+
+            string response = getResponse(facebookendpoint.getcomment(Post_id));
+
+            System.Diagnostics.Debug.WriteLine(response);
+
+            using (JSONParser<FacebookAPIFeedComment> jsonParser = new JSONParser<FacebookAPIFeedComment>())
+            {
+                FacebookAPIFeedComment FacebookAPIPhoto = new FacebookAPIFeedComment();
+                FacebookAPIPhoto = (FacebookAPIFeedComment)jsonParser.parse(response);
+
+                foreach (comments data in FacebookAPIPhoto.data)
+                {
+                    comments.Add(new Comments(data.id, data.created_time, data.message));
+                }
+            }
+
+            return comments;
+        }
+
+        public void SetComment(string id,string msg)
+        {
+            string response = PostResponse(facebookendpoint.addcomment(id, msg));
+
+            System.Diagnostics.Debug.WriteLine(response);
+        }
     }
 }

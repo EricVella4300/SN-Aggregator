@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SN_Aggregator_App.Models.CommentsModel>
+
+@{
+    ViewBag.Title = "ViewComments";
+}
+
+<h2>Comments</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm("AddComment", "FB", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container">
+        <label>Create New comment for this post</label>
+        <input type="text" placeholder="Message" id="message" name="message" class="form-control" />
+        <input type="submit" value="submit" />
+    </div>
+}

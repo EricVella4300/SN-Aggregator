@@ -215,9 +215,11 @@
     <Compile Include="Facebook\Controller\FacebookController.cs" />
     <Compile Include="Facebook\Endpoints\Facebookendpoint.cs" />
     <Compile Include="Facebook\JSONParser\JsonParser.cs" />
+    <Compile Include="Facebook\Models\FacebookAPIFeedComment.cs" />
     <Compile Include="Facebook\Models\FaceBookAPIFeedLikes.cs" />
     <Compile Include="Facebook\Models\FacebookAPIPageFeed.cs" />
     <Compile Include="Facebook\Models\FacebookAPIPhoto.cs" />
+    <Compile Include="Facebook\POCO\Comments.cs" />
     <Compile Include="Facebook\POCO\FeedPost.cs" />
     <Compile Include="Facebook\POCO\Images.cs" />
     <Compile Include="Facebook\POCO\PostLikes.cs" />
@@ -297,6 +299,9 @@
     <Content Include="Views\FB\PageFeed.cshtml" />
     <Content Include="Views\FB\PageFeedLikes.cshtml" />
     <Content Include="Views\FB\ViewLikes.cshtml" />
+    <Content Include="Views\FB\ViewImages.cshtml" />
+    <Content Include="Views\FB\PageFeedComments.cshtml" />
+    <Content Include="Views\FB\ViewComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

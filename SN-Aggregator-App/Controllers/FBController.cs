@@ -15,7 +15,7 @@ namespace SN_Aggregator_App.Controllers
         public ActionResult PageFeed ()
         {
             Settings set = db.settings.Find(User.Identity.Name);
-            List<PageFeedModel> feed = new List<PageFeedModel>(); 
+            List<PageFeedModel> feed = new List<PageFeedModel>();
             FacebookController fbcontroller = new FacebookController();
             List<FeedPost> posts = fbcontroller.GetPageFeed(set.FBidentification);
             foreach(FeedPost post in posts)
@@ -36,7 +36,6 @@ namespace SN_Aggregator_App.Controllers
             fbcontroller.SetPageFeed(txtMsg);
             return RedirectToAction("PageFeed");
         }
-
         
         public ActionResult PageFeedLikes()
         {
@@ -69,6 +68,72 @@ namespace SN_Aggregator_App.Controllers
                 likes.Add(flm);
             }
             return View(likes);
+        }
+
+        public ActionResult ViewImages()
+        {
+            List<ImagesModel> photos = new List<ImagesModel>();
+            FacebookController fbcontroller = new FacebookController();
+            List<Images> posts = fbcontroller.GetPhoto();
+            foreach (Images post in posts)
+            {
+                ImagesModel flm = new ImagesModel();
+                flm.id = post.getId();
+                flm.url = post.getURL();
+                photos.Add(flm);
+            }
+            return View(photos);
+        }
+
+        public ActionResult PageFeedComments()
+        {
+            Settings set = db.settings.Find(User.Identity.Name);
+            List<PageFeedModel> feed = new List<PageFeedModel>();
+            FacebookController fbcontroller = new FacebookController();
+            List<FeedPost> posts = fbcontroller.GetPageFeed(set.FBidentification);
+            foreach (FeedPost post in posts)
+            {
+                PageFeedModel pfm = new PageFeedModel();
+                pfm.id = post.getId();
+                pfm.datecreated = post.getDateTime();
+                pfm.message = post.getMessage();
+                feed.Add(pfm);
+            }
+            return View(feed);
+        }
+
+        public ActionResult ViewComments(string id)
+        {
+            if (id == null)
+            {
+                id = Session["id"].ToString();
+            }
+            else
+            {
+                Session["id"] = id;
+            }
+            List<CommentsModel> comments = new List<CommentsModel>();
+            FacebookController fbcontroller = new FacebookController();
+            List<Comments> posts = fbcontroller.GetComments(id);
+            foreach (Comments post in posts)
+            {
+                CommentsModel cm = new CommentsModel();
+                cm.id = post.getId();
+                cm.Date = post.getTime();
+                cm.message = post.getMessage();
+                comments.Add(cm);
+            }
+            return View(comments);
+        }
+
+        public ActionResult AddComment(string message)
+        {
+            string id = Session["id"].ToString();
+            FacebookController fbcontroller = new FacebookController();
+            fbcontroller.SetComment(id,message);
+            Session["id"] = id;
+            return RedirectToAction("ViewComments", "FB", id);
+            
         }
     }
 }

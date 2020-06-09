@@ -1,0 +1,34 @@
+﻿@model IEnumerable<SN_Aggregator_App.Models.PageFeedModel>
+
+@{
+    ViewBag.Title = "PageFeedComments";
+}
+
+<h2>All posts</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.datecreated)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.message)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.datecreated)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.message)
+        </td>
+        <td>
+            @Html.ActionLink("View Comments", "ViewComments", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SN_Aggregator_App.Models.ImagesModel>
+
+@{
+    ViewBag.Title = "ViewImages";
+}
+
+<h2>ViewImages</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Images
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@item.url">
+        </td>
+    </tr>
+}
+
+</table>
