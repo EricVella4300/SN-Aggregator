@@ -116,5 +116,87 @@ namespace SN_Aggregator_App.Facebook.Controller
 
             System.Diagnostics.Debug.WriteLine(response);
         }
+
+        public profile GetProfile(string userId, List<string> perm, string token)
+        {
+            profile prof;
+
+            string response = getResponse(facebookendpoint.GetProfile(userId, perm, token));
+
+            System.Diagnostics.Debug.WriteLine(response);
+
+            using (JSONParser<FacebookAPIProfile> jsonParser = new JSONParser<FacebookAPIProfile>())
+            {
+                FacebookAPIProfile facebookAPIProfile = new FacebookAPIProfile();
+                facebookAPIProfile = (FacebookAPIProfile)jsonParser.parse(response);
+
+                List<string> likedpg = new List<string>();
+
+                foreach(Liked like in facebookAPIProfile.likes.data)
+                {
+                    likedpg.Add(like.name);
+                }
+
+                prof = new profile();
+                try
+                {
+                    prof.setbirthday(facebookAPIProfile.birthday);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.setid(facebookAPIProfile.id);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.setquotes(facebookAPIProfile.quotes);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.setfirst_name(facebookAPIProfile.first_name);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.setlast_name(facebookAPIProfile.last_name);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.setlikes(likedpg);
+                }
+                catch
+                {
+                    //nothing
+                }
+                try
+                {
+                    prof.sethometown(facebookAPIProfile.hometown.name);
+                }
+                catch
+                {
+                    //nothing
+                }
+            }
+
+            return prof;
+        }
     }
 }

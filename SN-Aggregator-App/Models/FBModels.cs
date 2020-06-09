@@ -30,4 +30,15 @@ namespace SN_Aggregator_App.Models
         public string message { get; set; }
         public string Date { get; set; }
     }
+
+    public class ProfileModel
+    {
+        public string id { get; set; }
+        public string birthday { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string hometown { get; set; }
+        public string quotes { get; set; }
+        public List<string> likes { get; set; }
+    }
 }

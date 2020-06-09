@@ -135,5 +135,55 @@ namespace SN_Aggregator_App.Controllers
             return RedirectToAction("ViewComments", "FB", id);
             
         }
+
+        public ActionResult ProfilePage()
+        {
+            Settings set = db.settings.Find(User.Identity.Name);
+            List<string> perm = getPerm(set);
+            FacebookController fbcontroller = new FacebookController();
+            profile posts = fbcontroller.GetProfile(set.FBuserid, perm, set.FBidentification);
+
+            ProfileModel pm = new ProfileModel();
+            pm.id = posts.getId();
+            pm.birthday = posts.getbirthday();
+            pm.first_name = posts.getfirst_name();
+            pm.last_name = posts.getlast_name();
+            pm.hometown = posts.gethometown();
+            pm.quotes = posts.getquotes();
+            pm.likes = posts.getlikes();
+
+            return View(pm);
+        }
+
+
+        public List<string> getPerm(Settings set)
+        {
+            List<string> perm = new List<string>();
+            if (set.hometownperm == true)
+            {
+                perm.Add("hometown");
+            }
+            if (set.likesperm == true)
+            {
+                perm.Add("likes");
+            }
+            if (set.fnameperm == true)
+            {
+                perm.Add("first_name");
+            }
+            if (set.lnameperm == true)
+            {
+                perm.Add("last_name");
+            }
+            if (set.birthdayperm == true)
+            {
+                perm.Add("birthday");
+            }
+            if (set.quotesperm == true)
+            {
+                perm.Add("quotes");
+            }
+            return perm;
+        }
     }
 }

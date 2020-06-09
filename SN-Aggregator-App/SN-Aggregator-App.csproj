@@ -171,6 +171,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facebook\Models\FacebookAPIProfile.cs" />
+    <Compile Include="Facebook\POCO\profile.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -295,13 +297,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\User\Settings.cshtml" />
     <Content Include="Views\FB\PageFeed.cshtml" />
     <Content Include="Views\FB\PageFeedLikes.cshtml" />
     <Content Include="Views\FB\ViewLikes.cshtml" />
     <Content Include="Views\FB\ViewImages.cshtml" />
     <Content Include="Views\FB\PageFeedComments.cshtml" />
     <Content Include="Views\FB\ViewComments.cshtml" />
+    <Content Include="Views\User\Settings.cshtml" />
+    <Content Include="Views\FB\ProfilePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,19 +1,95 @@
-﻿@{
+﻿@model SN_Aggregator_App.Models.Settings
+
+@{
     ViewBag.Title = "Settings";
 }
 
 <h2>Settings</h2>
 
-    
 <div class="form-horizontal">
 
     <fb:login-button id="fb-btn"
-                        scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts"
-                        onlogin="checkLoginState();" >
+                     scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts,user_likes,user_hometown,user_birthday"
+                     onlogin="checkLoginState();">
     </fb:login-button>
-    <input type="button" value="Logout" id="Logout" onclick="Logout()" style="display:none"/>
+    <input type="button" value="Logout" id="Logout" onclick="Logout()" style="display:none" />
 </div>
 
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Settings</h4>
+        <hr />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fnameperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.fnameperm)
+                    @Html.ValidationMessageFor(model => model.fnameperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.lnameperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.lnameperm)
+                    @Html.ValidationMessageFor(model => model.lnameperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.birthdayperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.birthdayperm)
+                    @Html.ValidationMessageFor(model => model.birthdayperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.hometownperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.hometownperm)
+                    @Html.ValidationMessageFor(model => model.hometownperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quotesperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.quotesperm)
+                    @Html.ValidationMessageFor(model => model.quotesperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.likesperm, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.likesperm)
+                    @Html.ValidationMessageFor(model => model.likesperm, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
 
 <script type="text/javascript">
     window.fbAsyncInit = function () {
@@ -47,10 +123,11 @@
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
             $.ajax({
-                url: '/User/AddFBToken',
+                url: '/User/AddFBDetails',
                 method: 'POST',
                 data: {
                     token: response.authResponse.accessToken,
+                    id: response.authResponse.userID,
                 },
                 success: function () {
                     document.getElementById('fb-btn').style.display = 'none';
