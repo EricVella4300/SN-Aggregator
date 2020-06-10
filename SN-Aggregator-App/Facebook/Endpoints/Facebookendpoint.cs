@@ -86,6 +86,5 @@ namespace SN_Aggregator_App.Facebook.Endpoints
             stringBuilder.Append("&access_token=" + usertoken);
             return stringBuilder.ToString();
         }
-
     }
 }

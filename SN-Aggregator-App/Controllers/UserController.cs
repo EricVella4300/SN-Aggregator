@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TweetSharp;
 
 namespace SN_Aggregator_App.Controllers
 {
     public class UserController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private string temp;
 
         [HttpGet]
         public ActionResult Settings()
@@ -66,26 +68,23 @@ namespace SN_Aggregator_App.Controllers
             ViewData["FBAccessToken"] = token;
         }
 
-        public void AddTWToken(string token)
+        public void AddTWToken(string token, string id)
         {
             Settings Set = db.settings.Find(User.Identity.Name);
             if (Set != null)
             {
+                Set.Twitteruserid = id;
                 Set.TwitterIdentification = token;
             }
             else
             {
                 Set = new Settings();
                 Set.user_email = User.Identity.Name;
+                Set.Twitteruserid = id;
                 Set.TwitterIdentification = token;
                 db.settings.Add(Set);
             }
             db.SaveChanges();
-        }
-
-        public void profilesettings()
-        {
-
         }
     }
 }

@@ -12,13 +12,17 @@
                      scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts,user_likes,user_hometown,user_birthday"
                      onlogin="checkLoginState();">
     </fb:login-button>
-    <input type="button" value="Logout" id="Logout" onclick="Logout()" style="display:none" />
+    <input type="button" value="Logout of Facebook" id="Logout" onclick="Logout()" style="display:none" />
+
+    <button id="tw_btn" onclick="signinTW()">Sign in With Twitter</button>
+    <input type="button" value="Logout of Twitter" id="logoutTW" onclick="signouttw()" style="display:none" />
+
 </div>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Settings</h4>
         <hr />
@@ -144,6 +148,65 @@
     function Logout() {
         FB.logout(function () {
             checkLoginState();
+        });
+    }
+</script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCJjELiRHV188pi-mfFBjmHieLrE6-SDmw",
+        authDomain: "distributed-assignment-47d4c.firebaseapp.com",
+        databaseURL: "https://distributed-assignment-47d4c.firebaseio.com",
+        projectId: "distributed-assignment-47d4c",
+        storageBucket: "distributed-assignment-47d4c.appspot.com",
+        messagingSenderId: "41663534856",
+        appId: "1:41663534856:web:afad898ab918eb92b8febd",
+        measurementId: "G-QVG0ZRLCJ0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+</script>
+
+<script>
+
+    function signinTW()
+    {
+        var provider = new firebase.auth.TwitterAuthProvider();
+        firebase.auth().useDeviceLanguage();
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            console.log(result.user);
+            $.ajax({
+                url: '/User/AddTWToken',
+                method: 'POST',
+                data: {
+                    token: result.credential.accessToken,
+                    id: result.user.id,
+                },
+                success: function () {
+                    document.getElementById('tw_btn').style.display = 'none';
+                    document.getElementById('logoutTW').style.display = 'block';
+                }
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    function signouttw() {
+        firebase.auth().signOut().then(function() {
+            document.getElementById('tw_btn').style.display = 'block';
+            document.getElementById('logoutTW').style.display = 'none';
+        }).catch(function (error) {
+            console.log(error);
         });
     }
 </script>

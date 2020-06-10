@@ -33,7 +33,6 @@ namespace SN_Aggregator_App.Facebook.Controller
                     posts.Add(new FeedPost(data.created_time, data.message, data.id));
                 }
             }
-
             return posts;
         }
 

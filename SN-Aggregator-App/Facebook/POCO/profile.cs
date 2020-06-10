@@ -15,17 +15,6 @@ namespace SN_Aggregator_App.Facebook.POCO
         private string hometown;
         private List<string> likes;
 
-        public profile(string id, string quotes, string birthday, string first_name, string last_name, string hometown, List<string> likes)
-        {
-            this.quotes = quotes;
-            this.id = id;
-            this.birthday = birthday;
-            this.first_name = first_name;
-            this.last_name = last_name;
-            this.hometown = hometown;
-            this.likes = likes;
-        }
-
         public profile()
         {
             quotes = null;

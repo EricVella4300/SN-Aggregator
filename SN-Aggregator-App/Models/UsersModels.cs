@@ -19,5 +19,6 @@ namespace SN_Aggregator_App.Models
         public bool hometownperm { get; set; }
         public bool quotesperm { get; set; }
         public bool likesperm { get; set; }
+        public string Twitteruserid { get; set; }
     }
 }
