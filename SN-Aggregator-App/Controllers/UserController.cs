@@ -11,7 +11,6 @@ namespace SN_Aggregator_App.Controllers
     public class UserController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string temp;
 
         [HttpGet]
         public ActionResult Settings()
@@ -85,6 +84,23 @@ namespace SN_Aggregator_App.Controllers
                 db.settings.Add(Set);
             }
             db.SaveChanges();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult logOff()
+        {
+            AccountController ac = new AccountController();
+            ac.Logout();
+            return RedirectToAction("Login");
         }
     }
 }

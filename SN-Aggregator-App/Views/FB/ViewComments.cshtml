@@ -1,18 +1,14 @@
 ﻿@model IEnumerable<SN_Aggregator_App.Models.CommentsModel>
 
-@{
-    ViewBag.Title = "ViewComments";
-}
-
 <h2>Comments</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.message)
+            Message
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            Date Posted
         </th>
     </tr>
 

@@ -1,5 +1,5 @@
-﻿using SN_Aggregator_App.Facebook.Controller;
-using SN_Aggregator_App.Facebook.POCO;
+﻿using SN_Aggregator_App.API.Controller;
+using SN_Aggregator_App.API.POCO;
 using SN_Aggregator_App.Models;
 using System;
 using System.Collections.Generic;
@@ -32,8 +32,9 @@ namespace SN_Aggregator_App.Controllers
         [HttpPost]
         public ActionResult PageFeed(string txtMsg)
         {
+            Settings set = db.settings.Find(User.Identity.Name);
             FacebookController fbcontroller = new FacebookController();
-            fbcontroller.SetPageFeed(txtMsg);
+            fbcontroller.SetPageFeed(txtMsg, set.FBuserid, set.FBidentification);
             return RedirectToAction("PageFeed");
         }
         
@@ -57,9 +58,10 @@ namespace SN_Aggregator_App.Controllers
         
         public ActionResult ViewLikes(string Object_id)
         {
+            Settings set = db.settings.Find(User.Identity.Name);
             List<FeedLikesModel> likes = new List<FeedLikesModel>();
             FacebookController fbcontroller = new FacebookController();
-            List<PostLikes> posts = fbcontroller.GetObjectsLikes(Object_id);
+            List<PostLikes> posts = fbcontroller.GetObjectsLikes(Object_id, set.FBuserid, set.FBidentification);
             foreach (PostLikes post in posts)
             {
                 FeedLikesModel flm = new FeedLikesModel();
@@ -72,9 +74,10 @@ namespace SN_Aggregator_App.Controllers
 
         public ActionResult ViewImages()
         {
+            Settings set = db.settings.Find(User.Identity.Name);
             List<ImagesModel> photos = new List<ImagesModel>();
             FacebookController fbcontroller = new FacebookController();
-            List<Images> posts = fbcontroller.GetPhoto();
+            List<Images> posts = fbcontroller.GetPhoto(set.FBuserid, set.FBidentification);
             foreach (Images post in posts)
             {
                 ImagesModel flm = new ImagesModel();
@@ -104,6 +107,7 @@ namespace SN_Aggregator_App.Controllers
 
         public ActionResult ViewComments(string id)
         {
+            Settings set = db.settings.Find(User.Identity.Name);
             if (id == null)
             {
                 id = Session["id"].ToString();
@@ -114,7 +118,7 @@ namespace SN_Aggregator_App.Controllers
             }
             List<CommentsModel> comments = new List<CommentsModel>();
             FacebookController fbcontroller = new FacebookController();
-            List<Comments> posts = fbcontroller.GetComments(id);
+            List<Comments> posts = fbcontroller.GetComments(id, set.FBuserid, set.FBidentification);
             foreach (Comments post in posts)
             {
                 CommentsModel cm = new CommentsModel();
@@ -128,12 +132,12 @@ namespace SN_Aggregator_App.Controllers
 
         public ActionResult AddComment(string message)
         {
+            Settings set = db.settings.Find(User.Identity.Name);
             string id = Session["id"].ToString();
             FacebookController fbcontroller = new FacebookController();
-            fbcontroller.SetComment(id,message);
+            fbcontroller.SetComment(id,message, set.FBuserid, set.FBidentification);
             Session["id"] = id;
             return RedirectToAction("ViewComments", "FB", id);
-            
         }
 
         public ActionResult ProfilePage()

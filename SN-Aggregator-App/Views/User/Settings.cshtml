@@ -1,35 +1,85 @@
 ﻿@model SN_Aggregator_App.Models.Settings
 
-@{
-    ViewBag.Title = "Settings";
-}
+<div class="text-center">
+    <h2>Settings</h2>
+</div>
+<hr />
 
-<h2>Settings</h2>
+<div id="divSuccess" class="alert alert-success collapse">
+    <a id="linkSClose" class="close" onclick="closeS()">&times;</a>
+    <div id="divsuccessText"></div>
+</div>
 
-<div class="form-horizontal">
+<div id="divError" class="alert alert-danger collapse">
+    <a id="linkEClose" class="close" onclick="closeE()">&times;</a>
+    <div id="divErrorText"></div>
+</div>
 
-    <fb:login-button id="fb-btn"
-                     scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts,user_likes,user_hometown,user_birthday"
-                     onlogin="checkLoginState();">
-    </fb:login-button>
-    <input type="button" value="Logout of Facebook" id="Logout" onclick="Logout()" style="display:none" />
+<div class="form-horizontal container">
+    <h3>Change the Password</h3>
+    <br />
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-1">
+            <label style="font-size:15px">Old Password</label>
+        </div>
+        <div class="col-md-2">
+            <input id="oldpassword" name="oldpassword" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-1">
+            <label style="font-size:15px">New Password</label>
+        </div>
+        <div class="col-md-2">
+            <input id="newpassword" name="newpassword" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3 col-md-offset-1">
+            <label style="font-size:15px">Confirm Password</label>
+        </div>
+        <div class="col-md-2">
+            <input id="conpassword" name="conpassword" />
+        </div>
+    </div>
 
-    <button id="tw_btn" onclick="signinTW()">Sign in With Twitter</button>
-    <input type="button" value="Logout of Twitter" id="logoutTW" onclick="signouttw()" style="display:none" />
+    <div class="form-group">
+        <div class="text-right col-md-10">
+            <input type="submit" value="Submit Change" onclick="changePass()" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 
+<hr />
+<div class="form-horizontal container">
+    <h3>Social Accounts</h3>
+    <div class="form-group col-md-5">
+        <fb:login-button id="fb-btn"
+                        scope="public_profile,email,pages_read_engagement,pages_manage_posts,pages_manage_engagement,user_photos,user_posts,user_likes,user_hometown,user_birthday"
+                        onlogin="checkLoginState();" class="text-center">
+        </fb:login-button>
+        <input type="button" value="Logout of Facebook" id="logoutFB" onclick="Logout()" style="display:none" />
+    </div>
+    <div class="form-group col-md-5">
+        <button id="tw_btn" onclick="signinTW()">Sign in With Twitter</button>
+        <input type="button" value="Logout of Twitter" id="logoutTW" onclick="signouttw()" style="display:none" />
+    </div>
 </div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Settings</h4>
+    <div class="form-horizontal text-center">
         <hr />
+        <h3>Facebook Profile Details to Display</h3>
+        <h6>(Always press Save after any changes)</h6>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fnameperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>First Name </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.fnameperm)
                     @Html.ValidationMessageFor(model => model.fnameperm, "", new { @class = "text-danger" })
@@ -38,8 +88,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.lnameperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>Last Name </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.lnameperm)
                     @Html.ValidationMessageFor(model => model.lnameperm, "", new { @class = "text-danger" })
@@ -48,8 +100,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.birthdayperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>Birthday </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.birthdayperm)
                     @Html.ValidationMessageFor(model => model.birthdayperm, "", new { @class = "text-danger" })
@@ -58,8 +112,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.hometownperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>Hometown </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.hometownperm)
                     @Html.ValidationMessageFor(model => model.hometownperm, "", new { @class = "text-danger" })
@@ -68,8 +124,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.quotesperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>Quotes </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.quotesperm)
                     @Html.ValidationMessageFor(model => model.quotesperm, "", new { @class = "text-danger" })
@@ -78,8 +136,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.likesperm, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2 col-md-offset-0">
+                <h4>Pages Liked </h4>
+            </div>
+            <div class="col-md-2">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.likesperm)
                     @Html.ValidationMessageFor(model => model.likesperm, "", new { @class = "text-danger" })
@@ -88,14 +148,46 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="text-right col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+
 <script type="text/javascript">
+    
+    function closeE() {
+        $('#divError').hide('fade');
+    };
+
+    function closeS() {
+        $('#divSuccess').hide('fade');
+    };
+
+    function changePass() {
+        $.ajax({
+            url: 'api/account/changePassword',
+            method: 'POST',
+            data: {
+                OldPassword: $('#oldpassword').val(),
+                NewPassword: $('#newpassword').val(),
+                ConfirmPassword: $('#conpassword').val()
+            },
+            success: function () {
+                $('#divsuccessText').text("Password Successfully changed");
+                $('#divsuccess').show('fade');
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+    };
+
     window.fbAsyncInit = function () {
         FB.init({
             appId: '2689916747923929',
@@ -107,7 +199,19 @@
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
+    };
 
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '2689916747923929',
+            cookie: true,
+            xfbml: true,
+            version: 'v7.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
     };
 
     (function (d, s, id) {
@@ -122,7 +226,7 @@
         FB.getLoginStatus(function (response) {
             statusChangeCallback(response);
         });
-    }
+    };
 
     function statusChangeCallback(response) {
         if (response.status === 'connected') {
@@ -135,31 +239,53 @@
                 },
                 success: function () {
                     document.getElementById('fb-btn').style.display = 'none';
-                    document.getElementById('Logout').style.display = 'block';
+                    document.getElementById('logoutFB').style.display = 'block';
                 }
             });
         }
         else {
             document.getElementById('fb-btn').style.display = 'block';
-            document.getElementById('Logout').style.display = 'none';
+            document.getElementById('logoutFB').style.display = 'none';
         }
-    }
+    };
 
     function Logout() {
         FB.logout(function () {
             checkLoginState();
         });
-    }
-</script>
+    };
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    function signinTW() {
+        var provider = new firebase.auth.TwitterAuthProvider();
+        firebase.auth().useDeviceLanguage();
+        firebase.auth().signInWithPopup(provider).then(function (result) {
+            console.log(result);
+            $.ajax({
+                url: '/User/AddTWToken',
+                method: 'POST',
+                data: {
+                    token: result.credential.accessToken,
+                    id: result.additionalUserInfo.profile.id_str,
+                },
+                success: function () {
+                    document.getElementById('tw_btn').style.display = 'none';
+                    document.getElementById('logoutTW').style.display = 'block';
+                }
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+    function signouttw() {
+        firebase.auth().signOut().then(function () {
+            document.getElementById('tw_btn').style.display = 'block';
+            document.getElementById('logoutTW').style.display = 'none';
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
 
-<script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyCJjELiRHV188pi-mfFBjmHieLrE6-SDmw",
@@ -171,42 +297,8 @@
         appId: "1:41663534856:web:afad898ab918eb92b8febd",
         measurementId: "G-QVG0ZRLCJ0"
     };
+
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
-</script>
-
-<script>
-
-    function signinTW()
-    {
-        var provider = new firebase.auth.TwitterAuthProvider();
-        firebase.auth().useDeviceLanguage();
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            console.log(result.user);
-            $.ajax({
-                url: '/User/AddTWToken',
-                method: 'POST',
-                data: {
-                    token: result.credential.accessToken,
-                    id: result.user.id,
-                },
-                success: function () {
-                    document.getElementById('tw_btn').style.display = 'none';
-                    document.getElementById('logoutTW').style.display = 'block';
-                }
-            });
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
-
-    function signouttw() {
-        firebase.auth().signOut().then(function() {
-            document.getElementById('tw_btn').style.display = 'block';
-            document.getElementById('logoutTW').style.display = 'none';
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
 </script>

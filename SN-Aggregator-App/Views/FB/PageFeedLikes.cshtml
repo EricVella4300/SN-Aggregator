@@ -1,21 +1,14 @@
 ﻿@model IEnumerable<SN_Aggregator_App.Models.PageFeedModel>
 
-@{
-    ViewBag.Title = "PageFeedLikes";
-}
+<h2>Posts </h2>
 
-<h2>PageFeedLikes</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.datecreated)
+            Date posted
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.message)
+            Message
         </th>
         <th></th>
     </tr>

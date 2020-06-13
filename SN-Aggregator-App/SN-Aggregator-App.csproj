@@ -229,10 +229,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Facebook\Controller\TwitterController.cs" />
-    <Compile Include="Facebook\Endpoints\TwitterEndpoints.cs" />
-    <Compile Include="Facebook\Models\FacebookAPIProfile.cs" />
-    <Compile Include="Facebook\POCO\profile.cs" />
+    <Compile Include="API\Models\FacebookAPIPageAccessToken.cs" />
+    <Compile Include="API\Models\FacebookAPIProfile.cs" />
+    <Compile Include="API\POCO\profile.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -270,21 +269,22 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FBController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TWController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Facebook\Client\RestClient.cs" />
-    <Compile Include="Facebook\Controller\Controller.cs" />
-    <Compile Include="Facebook\Controller\FacebookController.cs" />
-    <Compile Include="Facebook\Endpoints\Facebookendpoint.cs" />
-    <Compile Include="Facebook\JSONParser\JsonParser.cs" />
-    <Compile Include="Facebook\Models\FacebookAPIFeedComment.cs" />
-    <Compile Include="Facebook\Models\FaceBookAPIFeedLikes.cs" />
-    <Compile Include="Facebook\Models\FacebookAPIPageFeed.cs" />
-    <Compile Include="Facebook\Models\FacebookAPIPhoto.cs" />
-    <Compile Include="Facebook\POCO\Comments.cs" />
-    <Compile Include="Facebook\POCO\FeedPost.cs" />
-    <Compile Include="Facebook\POCO\Images.cs" />
-    <Compile Include="Facebook\POCO\PostLikes.cs" />
+    <Compile Include="API\Client\RestClient.cs" />
+    <Compile Include="API\Controller\Controller.cs" />
+    <Compile Include="API\Controller\FacebookController.cs" />
+    <Compile Include="API\Endpoints\Facebookendpoint.cs" />
+    <Compile Include="API\JSONParser\JsonParser.cs" />
+    <Compile Include="API\Models\FacebookAPIFeedComment.cs" />
+    <Compile Include="API\Models\FaceBookAPIFeedLikes.cs" />
+    <Compile Include="API\Models\FacebookAPIPageFeed.cs" />
+    <Compile Include="API\Models\FacebookAPIPhoto.cs" />
+    <Compile Include="API\POCO\Comments.cs" />
+    <Compile Include="API\POCO\FeedPost.cs" />
+    <Compile Include="API\POCO\Images.cs" />
+    <Compile Include="API\POCO\PostLikes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -292,6 +292,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FBModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\TWModels.cs" />
     <Compile Include="Models\UsersModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -366,6 +367,8 @@
     <Content Include="Views\FB\ViewComments.cshtml" />
     <Content Include="Views\User\Settings.cshtml" />
     <Content Include="Views\FB\ProfilePage.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,63 +1,101 @@
 ﻿@model SN_Aggregator_App.Models.ProfileModel
 
-@{
-    ViewBag.Title = "ProfilePage";
-}
-
-<h2>ProfilePage</h2>
-
+<h2>Facebook Profile Details: </h2>
+<br />
 <div>
-    <h4>ProfileModel</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.birthday)
+            Birthday:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.birthday)
+            @if (Model.birthday != null)
+            {
+            <text>@Model.birthday</text>
+            }
+            else
+            {
+            <label>Permission was not granted</label>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.first_name)
+            First Name:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.first_name)
+            @if (Model.first_name != null)
+            {
+            <text>@Model.first_name</text>
+            }
+            else
+            {
+            <label>Permission was not granted</label>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.last_name)
+            Last Name:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.last_name)
+            @if (Model.last_name != null)
+            {
+            <text>@Model.last_name</text>
+            }
+            else
+            {
+            <label>Permission was not granted</label>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.hometown)
+            Home Town:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.hometown)
+            @if (Model.hometown != null)
+            {
+            <text>@Model.hometown</text>
+            }
+            else
+            {
+            <label>Permission was not granted</label>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.quotes)
+            Quotes:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.quotes)
+            @if (Model.quotes != null)
+            {
+            <text>@Model.quotes</text>
+            }
+            else
+            {
+            <label>Permission was not granted</label>
+            }
         </dd>
 
         <dt>
             Liked Pages
         </dt>
 
-        @foreach (string str in Model.likes)
+        @if (Model.likes != null)
+        {
+            foreach (string str in Model.likes)
+            {
+                <dd>
+                    @str
+                </dd>
+            }
+        }
+        else
         {
             <dd>
-                @str
+                <label>Permission was not granted</label>
             </dd>
         }
 
