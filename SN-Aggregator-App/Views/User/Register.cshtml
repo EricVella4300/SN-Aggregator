@@ -1,5 +1,5 @@
 ﻿<div class="text-center">
-    <div class="col-md-12 col-md-offset-2">
+    <div class="col-md-12">
         <div class="well">
             <table class="table table-bordered">
                 <thead>
@@ -77,7 +77,7 @@
             },
             success: function () {
                 $('#successModal').modal('show');
-                window.location.href = "/Login";
+                window.location.href = "/User/Login";
             },
             error: function (jqXHR) {
                 $('#divErrorText').text(jqXHR.responseText);

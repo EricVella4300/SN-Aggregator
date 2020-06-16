@@ -26,11 +26,11 @@ namespace SN_Aggregator_App.Models
         {
         }
 
-        public DbSet<Settings> settings { get; set; }
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Settings> settings { get; set; }
     }
 }
